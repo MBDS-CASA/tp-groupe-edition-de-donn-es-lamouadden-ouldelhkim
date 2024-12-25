@@ -67,7 +67,7 @@ const FormulaireEtudiant = ({ data, onAddStudent, editingStudent, onModifyStuden
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
           <TextField
             fullWidth
-            label="First Name"
+            label="First Name Fixed"
             name="firstname"
             value={formData.firstname}
             onChange={handleInputChange}
