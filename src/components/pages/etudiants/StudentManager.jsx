@@ -6,6 +6,7 @@ const StudentManager = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [editingStudent, setEditingStudent] = useState(null);
 
   useEffect(() => {
     fetch("/data.json")
@@ -30,6 +31,21 @@ const StudentManager = () => {
     setData([...data, newStudent]);
   };
 
+  const deleteStudent = (id) => {
+    setData(data.filter((student) => student.student.id !== id));
+  };
+
+  const modifyStudent = (updatedStudent) => {
+    setData(
+      data.map((student) =>
+        student.student.id === updatedStudent.id
+          ? { ...student, student: updatedStudent }
+          : student
+      )
+    );
+    setEditingStudent(null); // Clear editing mode
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -40,8 +56,17 @@ const StudentManager = () => {
 
   return (
     <div>
-      <FormulaireEtudiant data={data} onAddStudent={addStudent} />
-      <Etudiants data={data} />
+      <FormulaireEtudiant
+        data={data}
+        onAddStudent={addStudent}
+        editingStudent={editingStudent}
+        onModifyStudent={modifyStudent}
+      />
+      <Etudiants
+        data={data}
+        onDeleteStudent={deleteStudent}
+        onEditStudent={setEditingStudent}
+      />
     </div>
   );
 };
