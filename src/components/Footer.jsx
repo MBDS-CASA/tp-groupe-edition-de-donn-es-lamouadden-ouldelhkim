@@ -5,7 +5,7 @@ const Footer = () => {
 
   return (
     <footer className="text-5xl text-center mt-4">
-      © {year} - Yassine Lamouadden, Tous droits réservés.
+      © {year} - Yassine Lamouadden && Ouldelhkim Souhail Ismail, Tous droits réservés.
     </footer>
   );
 };

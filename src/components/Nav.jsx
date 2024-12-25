@@ -32,7 +32,7 @@ const Nav = () => {
 
   const menuItems = [
     { text: "Home", icon: <HomeIcon />, route: "/" },
-    { text: "Notes", icon: <NotesIcon />, route: "/notes" },
+    { text: "Note", icon: <NotesIcon />, route: "/notes" },
     { text: "Etudiants", icon: <StudentsIcon />, route: "/etudiants" },
     { text: "Matières", icon: <SubjectsIcon />, route: "/matieres" },
     { text: "A propos", icon: <AboutIcon />, route: "/apropos" },
