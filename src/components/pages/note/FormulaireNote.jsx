@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Button, TextField, Box, Typography } from "@mui/material";
 
-/**
- * Formulaire d'ajout d'une nouvelle note
- * @param {Array}   data       Tableau des notes existantes
- * @param {Function} onAddNote Callback pour ajouter une nouvelle note
- */
-const FormulaireNote = ({ data, onAddNote }) => {
+const FormulaireNote = ({ data, onAddNote, editingNote, onUpdateNote }) => {
   const [formData, setFormData] = useState({
     grade: "",
   });
 
-  // Gère la saisie des champs (ici, on n’a qu’un champ grade)
+  useEffect(() => {
+    if (editingNote) {
+      setFormData({ grade: editingNote.grade });
+    } else {
+      setFormData({ grade: "" });
+    }
+  }, [editingNote]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -19,39 +22,63 @@ const FormulaireNote = ({ data, onAddNote }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newNote = {
+    if (editingNote) {
+      const updatedNote = {
+        ...editingNote,
+        grade: formData.grade,
+      };
+      onUpdateNote(updatedNote);
+    } else {
+      const newNote = {
+        unique_id: data.length + 1,
+        course: "New Course",
+        student: {
+          id: Date.now(),
+        },
+        date: new Date().toISOString().split("T")[0],
+        grade: formData.grade,
+      };
+      onAddNote(newNote);
+    }
 
-      unique_id: data.length + 1,
-      course: "New Course", 
-      student: {
-        id: Date.now(), 
-      },
-      date: new Date().toISOString().split("T")[0], // date du jour
-      grade: formData.grade,
-    };
-    onAddNote(newNote);
     setFormData({ grade: "" });
   };
 
   return (
-    <div>
-      <h1>Note Manager</h1>
+    <Box
+      sx={{
+        maxWidth: 400,
+        mx: "auto",
+        mt: 4,
+        p: 3,
+        boxShadow: 2,
+        borderRadius: 1,
+      }}
+    >
+      <Typography variant="h5" component="h1" gutterBottom>
+        {editingNote ? "Edit Note" : "Add New Note"}
+      </Typography>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Note:
-            <input
-              type="text"
-              name="grade"
-              value={formData.grade}
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-        </div>
-        <button type="submit">Add Note</button>
+        <TextField
+          fullWidth
+          label="Grade"
+          name="grade"
+          value={formData.grade}
+          onChange={handleInputChange}
+          required
+          margin="normal"
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color={editingNote ? "success" : "primary"}
+          sx={{ mt: 2 }}
+          fullWidth
+        >
+          {editingNote ? "Update Note" : "Add Note"}
+        </Button>
       </form>
-    </div>
+    </Box>
   );
 };
 

@@ -1,4 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { 
+  Box, 
+  TextField, 
+  Button, 
+  Typography, 
+  Card, 
+  CardContent 
+} from "@mui/material";
 
 const FormulaireEtudiant = ({ data, onAddStudent, editingStudent, onModifyStudent }) => {
   const [formData, setFormData] = useState({
@@ -51,36 +59,55 @@ const FormulaireEtudiant = ({ data, onAddStudent, editingStudent, onModifyStuden
   };
 
   return (
-    <div>
-      <h1>{editingStudent ? "Edit Student" : "Add Student"}</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Firstname:
-            <input
-              type="text"
-              name="firstname"
-              value={formData.firstname}
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Lastname:
-            <input
-              type="text"
-              name="lastname"
-              value={formData.lastname}
-              onChange={handleInputChange}
-              required
-            />
-          </label>
-        </div>
-        <button type="submit">{editingStudent ? "Save Changes" : "Add Student"}</button>
-      </form>
-    </div>
+    <Card sx={{ maxWidth: 600, margin: '20px auto', padding: 2 }}>
+      <CardContent>
+        <Typography variant="h5" component="h2" gutterBottom>
+          {editingStudent ? "Edit Student" : "Add Student"}
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
+          <TextField
+            fullWidth
+            label="First Name"
+            name="firstname"
+            value={formData.firstname}
+            onChange={handleInputChange}
+            required
+            margin="normal"
+            variant="outlined"
+          />
+          <TextField
+            fullWidth
+            label="Last Name"
+            name="lastname"
+            value={formData.lastname}
+            onChange={handleInputChange}
+            required
+            margin="normal"
+            variant="outlined"
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            color={editingStudent ? "success" : "primary"}
+            sx={{ mt: 2 }}
+            fullWidth
+          >
+            {editingStudent ? "Save Changes" : "Add Student"}
+          </Button>
+          {editingStudent && (
+            <Button
+              variant="outlined"
+              color="secondary"
+              sx={{ mt: 1 }}
+              fullWidth
+              onClick={() => onModifyStudent(null)}
+            >
+              Cancel Edit
+            </Button>
+          )}
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
 

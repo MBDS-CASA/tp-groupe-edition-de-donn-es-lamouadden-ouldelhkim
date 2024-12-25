@@ -9,15 +9,15 @@ import {
   Paper,
   Typography,
   TablePagination,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
-/**
- * Affichage de la liste des cours avec pagination
- * @param {Array} data - Tableau des cours
- */
-const Course = ({ data }) => {
-  const [page, setPage] = useState(0);          
-  const [rowsPerPage, setRowsPerPage] = useState(5); 
+const Course = ({ data, onDelete, onEdit }) => {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -32,7 +32,7 @@ const Course = ({ data }) => {
   const endIndex = startIndex + rowsPerPage;
   const currentData = data?.slice(startIndex, endIndex);
 
-  console.log("Données reçues par Course :", data); 
+  console.log("Données reçues par Course :", data);
 
   return (
     <TableContainer
@@ -54,6 +54,8 @@ const Course = ({ data }) => {
           <TableRow style={{ backgroundColor: "#f5f5f5" }}>
             <TableCell style={{ fontWeight: "bold" }}>Unique ID</TableCell>
             <TableCell style={{ fontWeight: "bold" }}>Nom du Cours</TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>Description</TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -66,6 +68,27 @@ const Course = ({ data }) => {
             >
               <TableCell>{element?.unique_id}</TableCell>
               <TableCell>{element?.courseName}</TableCell>
+              <TableCell>{element?.description}</TableCell>
+              <TableCell>
+                <Tooltip title="Modifier">
+                  <IconButton 
+                    onClick={() => onEdit(element)}
+                    size="small"
+                    color="primary"
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Supprimer">
+                  <IconButton
+                    onClick={() => onDelete(element.unique_id)}
+                    size="small"
+                    color="error"
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -78,6 +101,7 @@ const Course = ({ data }) => {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        labelRowsPerPage="Lignes par page:"
       />
     </TableContainer>
   );

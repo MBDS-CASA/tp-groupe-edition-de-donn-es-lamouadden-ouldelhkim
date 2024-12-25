@@ -2,14 +2,11 @@ import React, { useState, useEffect } from "react";
 import Note from "./Note";
 import FormulaireNote from "./FormulaireNote";
 
-/**
- * Gère le chargement des données (notes) depuis /data.json,
- * l'ajout d'une nouvelle note, et l'affichage de la liste.
- */
 const NoteManager = () => {
-  const [data, setData] = useState([]);    // stocke la liste des notes
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [editingNote, setEditingNote] = useState(null);
 
   useEffect(() => {
     fetch("/data.json")
@@ -34,21 +31,39 @@ const NoteManager = () => {
     setData((prev) => [...prev, newNote]);
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const deleteNote = (uniqueId) => {
+    setData((prev) => prev.filter(note => note.unique_id !== uniqueId));
+  };
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  const updateNote = (updatedNote) => {
+    setData((prev) => 
+      prev.map(note => 
+        note.unique_id === updatedNote.unique_id ? updatedNote : note
+      )
+    );
+    setEditingNote(null);
+  };
+
+  const startEditing = (note) => {
+    setEditingNote(note);
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div>
-      {/* Formulaire d'ajout de note */}
-      <FormulaireNote data={data} onAddNote={addNote} />
-
-      {/* Liste des notes */}
-      <Note data={data} />
+      <FormulaireNote 
+        data={data} 
+        onAddNote={addNote}
+        editingNote={editingNote}
+        onUpdateNote={updateNote}
+      />
+      <Note 
+        data={data}
+        onDelete={deleteNote}
+        onEdit={startEditing}
+      />
     </div>
   );
 };

@@ -9,15 +9,15 @@ import {
   Paper,
   Typography,
   TablePagination,
+  IconButton,
+  Tooltip,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
-/**
- * Affichage de la liste des notes avec pagination
- * @param {Array} data - Tableau d’objets "note", chacun contenant (unique_id, student, date, grade, etc.)
- */
-const Note = ({ data }) => {
-  const [page, setPage] = useState(0);          
-  const [rowsPerPage, setRowsPerPage] = useState(5); 
+const Note = ({ data, onDelete, onEdit }) => {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -53,12 +53,13 @@ const Note = ({ data }) => {
             <TableCell style={{ fontWeight: "bold" }}>Unique ID</TableCell>
             <TableCell style={{ fontWeight: "bold" }}>Date</TableCell>
             <TableCell style={{ fontWeight: "bold" }}>Grade</TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {currentData?.map((element, index) => (
             <TableRow
-              key={element?.student.id} 
+              key={element?.student.id}
               style={{
                 backgroundColor: index % 2 === 0 ? "#fafafa" : "white",
               }}
@@ -66,11 +67,30 @@ const Note = ({ data }) => {
               <TableCell>{element?.unique_id}</TableCell>
               <TableCell>{element?.date}</TableCell>
               <TableCell>{element?.grade}</TableCell>
+              <TableCell>
+                <Tooltip title="Edit">
+                  <IconButton
+                    onClick={() => onEdit(element)}
+                    size="small"
+                    color="primary"
+                  >
+                    <EditIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Delete">
+                  <IconButton
+                    onClick={() => onDelete(element.unique_id)}
+                    size="small"
+                    color="error"
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      {/* Pagination */}
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
