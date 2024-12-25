@@ -12,6 +12,7 @@ import Matieres from "./components/pages/Matieres";
 import Notes from "./components/pages/Notes";
 import Etudiants from "./components/pages/etudiants/Etudiants";
 import StudentManager from "./components/pages/etudiants/StudentManager";
+import Statistics from "./components/pages/statistique/Statistique";
 
 // Home component moved outside App to avoid re-creation
 const Home = ({ randomItem, onGetRandomItem }) => (
@@ -73,6 +74,7 @@ function App() {
             <Route path="/notes" element={<Notes data={data} />} />
             <Route path="/etudiants" element={<StudentManager data={data} />} />
             <Route path="/matieres" element={<Matieres data={data} />} />
+            <Route path="/stats" element={<Statistics />} />
             <Route path="/apropos" element={<Apropos />} />
             {/* Redirect any unknown routes to home */}
             <Route path="*" element={<Navigate to="/" replace />} />
