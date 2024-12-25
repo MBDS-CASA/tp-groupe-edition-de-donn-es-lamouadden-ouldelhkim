@@ -1,10 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const FormulaireEtudiant = ({ data, onAddStudent }) => {
+const FormulaireEtudiant = ({ data, onAddStudent, editingStudent, onModifyStudent }) => {
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
   });
+
+  useEffect(() => {
+    if (editingStudent) {
+      setFormData({
+        firstname: editingStudent.firstname,
+        lastname: editingStudent.lastname,
+      });
+    } else {
+      setFormData({
+        firstname: "",
+        lastname: "",
+      });
+    }
+  }, [editingStudent]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -13,25 +27,32 @@ const FormulaireEtudiant = ({ data, onAddStudent }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newStudent = {
-      unique_id: data.length + 1,
-      course: "New Course",
-      student: {
+    if (editingStudent) {
+      onModifyStudent({
+        id: editingStudent.id,
         firstname: formData.firstname,
         lastname: formData.lastname,
-        id: Date.now(),
-      },
-      date: new Date().toISOString().split("T")[0],
-      grade: null,
-    };
-
-    onAddStudent(newStudent);
+      });
+    } else {
+      const newStudent = {
+        unique_id: data.length + 1,
+        course: "New Course",
+        student: {
+          firstname: formData.firstname,
+          lastname: formData.lastname,
+          id: Date.now(),
+        },
+        date: new Date().toISOString().split("T")[0],
+        grade: null,
+      };
+      onAddStudent(newStudent);
+    }
     setFormData({ firstname: "", lastname: "" });
   };
 
   return (
     <div>
-      <h1>Student Manager</h1>
+      <h1>{editingStudent ? "Edit Student" : "Add Student"}</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>
@@ -57,7 +78,7 @@ const FormulaireEtudiant = ({ data, onAddStudent }) => {
             />
           </label>
         </div>
-        <button type="submit">Add Student</button>
+        <button type="submit">{editingStudent ? "Save Changes" : "Add Student"}</button>
       </form>
     </div>
   );
