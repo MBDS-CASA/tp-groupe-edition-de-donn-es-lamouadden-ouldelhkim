@@ -1,0 +1,1102 @@
+[
+    {
+        "unique_id": 1,
+        "course": "Math 101",
+        "student": {
+            "firstname": "Matthew",
+            "lastname": "Gonzalez",
+            "id": 2128
+        },
+        "date": "2023-02-10",
+        "grade": 99
+    },
+    {
+        "unique_id": 2,
+        "course": "Physics 505",
+        "student": {
+            "firstname": "Kevin",
+            "lastname": "Green",
+            "id": 7912
+        },
+        "date": "2022-11-01",
+        "grade": 64
+    },
+    {
+        "unique_id": 3,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "James",
+            "lastname": "Murphy",
+            "id": 5589
+        },
+        "date": "2022-02-20",
+        "grade": 64
+    },
+    {
+        "unique_id": 4,
+        "course": "Math 101",
+        "student": {
+            "firstname": "Johnny",
+            "lastname": "Cox",
+            "id": 8569
+        },
+        "date": "2021-11-11",
+        "grade": 59
+    },
+    {
+        "unique_id": 5,
+        "course": "Math 101",
+        "student": {
+            "firstname": "Cynthia",
+            "lastname": "Clay",
+            "id": 2864
+        },
+        "date": "2023-04-04",
+        "grade": 80
+    },
+    {
+        "unique_id": 6,
+        "course": "History 303",
+        "student": {
+            "firstname": "Scott",
+            "lastname": "Thompson",
+            "id": 2797
+        },
+        "date": "2022-11-07",
+        "grade": 99
+    },
+    {
+        "unique_id": 7,
+        "course": "Physics 505",
+        "student": {
+            "firstname": "Jessica",
+            "lastname": "Miller",
+            "id": 8264
+        },
+        "date": "2023-12-26",
+        "grade": 70
+    },
+    {
+        "unique_id": 8,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Stephanie",
+            "lastname": "White",
+            "id": 1864
+        },
+        "date": "2020-04-27",
+        "grade": 51
+    },
+    {
+        "unique_id": 9,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Andrea",
+            "lastname": "Anderson",
+            "id": 4137
+        },
+        "date": "2020-03-19",
+        "grade": 65
+    },
+    {
+        "unique_id": 10,
+        "course": "Physics 505",
+        "student": {
+            "firstname": "Jennifer",
+            "lastname": "Sanchez",
+            "id": 3816
+        },
+        "date": "2023-02-08",
+        "grade": 79
+    },
+    {
+        "unique_id": 11,
+        "course": "English 202",
+        "student": {
+            "firstname": "Rebecca",
+            "lastname": "Cruz",
+            "id": 4386
+        },
+        "date": "2023-10-03",
+        "grade": 92
+    },
+    {
+        "unique_id": 12,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Stephanie",
+            "lastname": "Perez",
+            "id": 2176
+        },
+        "date": "2020-01-26",
+        "grade": 60
+    },
+    {
+        "unique_id": 13,
+        "course": "CS 707",
+        "student": {
+            "firstname": "Stephanie",
+            "lastname": "Shepard",
+            "id": 7631
+        },
+        "date": "2023-01-21",
+        "grade": 83
+    },
+    {
+        "unique_id": 14,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Nicole",
+            "lastname": "Baxter",
+            "id": 8781
+        },
+        "date": "2020-12-14",
+        "grade": 78
+    },
+    {
+        "unique_id": 15,
+        "course": "CS 707",
+        "student": {
+            "firstname": "Curtis",
+            "lastname": "Adams",
+            "id": 1432
+        },
+        "date": "2023-12-01",
+        "grade": 79
+    },
+    {
+        "unique_id": 16,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "John",
+            "lastname": "Jones",
+            "id": 2055
+        },
+        "date": "2022-05-09",
+        "grade": 89
+    },
+    {
+        "unique_id": 17,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Susan",
+            "lastname": "Price",
+            "id": 9285
+        },
+        "date": "2023-04-11",
+        "grade": 93
+    },
+    {
+        "unique_id": 18,
+        "course": "Math 101",
+        "student": {
+            "firstname": "Lisa",
+            "lastname": "Parker",
+            "id": 2186
+        },
+        "date": "2023-07-13",
+        "grade": 51
+    },
+    {
+        "unique_id": 19,
+        "course": "History 303",
+        "student": {
+            "firstname": "Michael",
+            "lastname": "Hall",
+            "id": 5220
+        },
+        "date": "2021-02-12",
+        "grade": 73
+    },
+    {
+        "unique_id": 20,
+        "course": "Physics 505",
+        "student": {
+            "firstname": "Wanda",
+            "lastname": "Rowland",
+            "id": 7727
+        },
+        "date": "2022-11-19",
+        "grade": 95
+    },
+    {
+        "unique_id": 21,
+        "course": "CS 707",
+        "student": {
+            "firstname": "Matthew",
+            "lastname": "Glenn",
+            "id": 6721
+        },
+        "date": "2021-11-13",
+        "grade": 72
+    },
+    {
+        "unique_id": 22,
+        "course": "CS 707",
+        "student": {
+            "firstname": "Matthew",
+            "lastname": "Ward",
+            "id": 9101
+        },
+        "date": "2022-09-22",
+        "grade": 60
+    },
+    {
+        "unique_id": 23,
+        "course": "CS 707",
+        "student": {
+            "firstname": "Brittany",
+            "lastname": "Giles",
+            "id": 3008
+        },
+        "date": "2021-07-22",
+        "grade": 79
+    },
+    {
+        "unique_id": 24,
+        "course": "History 303",
+        "student": {
+            "firstname": "Eric",
+            "lastname": "Baldwin",
+            "id": 1831
+        },
+        "date": "2022-09-11",
+        "grade": 61
+    },
+    {
+        "unique_id": 25,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Brenda",
+            "lastname": "Rangel",
+            "id": 4636
+        },
+        "date": "2020-01-01",
+        "grade": 60
+    },
+    {
+        "unique_id": 26,
+        "course": "English 202",
+        "student": {
+            "firstname": "Zachary",
+            "lastname": "Hernandez",
+            "id": 3351
+        },
+        "date": "2022-11-10",
+        "grade": 92
+    },
+    {
+        "unique_id": 27,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Krista",
+            "lastname": "Cooper",
+            "id": 2956
+        },
+        "date": "2022-01-22",
+        "grade": 79
+    },
+    {
+        "unique_id": 28,
+        "course": "CS 707",
+        "student": {
+            "firstname": "Isabella",
+            "lastname": "Cortez",
+            "id": 1937
+        },
+        "date": "2022-11-21",
+        "grade": 86
+    },
+    {
+        "unique_id": 29,
+        "course": "Math 101",
+        "student": {
+            "firstname": "David",
+            "lastname": "Johnson",
+            "id": 5990
+        },
+        "date": "2020-05-10",
+        "grade": 82
+    },
+    {
+        "unique_id": 30,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "James",
+            "lastname": "Stewart",
+            "id": 7234
+        },
+        "date": "2021-02-11",
+        "grade": 96
+    },
+    {
+        "unique_id": 31,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Randy",
+            "lastname": "Hodges",
+            "id": 8004
+        },
+        "date": "2023-05-16",
+        "grade": 89
+    },
+    {
+        "unique_id": 32,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Brandon",
+            "lastname": "Estes",
+            "id": 2014
+        },
+        "date": "2020-10-31",
+        "grade": 85
+    },
+    {
+        "unique_id": 33,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Carol",
+            "lastname": "Howard",
+            "id": 8622
+        },
+        "date": "2020-01-05",
+        "grade": 50
+    },
+    {
+        "unique_id": 34,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Paul",
+            "lastname": "Gray",
+            "id": 7104
+        },
+        "date": "2022-03-14",
+        "grade": 99
+    },
+    {
+        "unique_id": 35,
+        "course": "Math 101",
+        "student": {
+            "firstname": "Michael",
+            "lastname": "Hernandez",
+            "id": 8517
+        },
+        "date": "2021-05-11",
+        "grade": 51
+    },
+    {
+        "unique_id": 36,
+        "course": "Physics 505",
+        "student": {
+            "firstname": "Angela",
+            "lastname": "Townsend",
+            "id": 7006
+        },
+        "date": "2020-09-20",
+        "grade": 56
+    },
+    {
+        "unique_id": 37,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Caroline",
+            "lastname": "Washington",
+            "id": 3964
+        },
+        "date": "2022-10-17",
+        "grade": 91
+    },
+    {
+        "unique_id": 38,
+        "course": "English 202",
+        "student": {
+            "firstname": "John",
+            "lastname": "Jones",
+            "id": 6598
+        },
+        "date": "2020-05-30",
+        "grade": 69
+    },
+    {
+        "unique_id": 39,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Bianca",
+            "lastname": "Warren",
+            "id": 7261
+        },
+        "date": "2021-05-20",
+        "grade": 87
+    },
+    {
+        "unique_id": 40,
+        "course": "Math 101",
+        "student": {
+            "firstname": "Sean",
+            "lastname": "Flores",
+            "id": 9442
+        },
+        "date": "2022-11-22",
+        "grade": 62
+    },
+    {
+        "unique_id": 41,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Patricia",
+            "lastname": "Rodriguez",
+            "id": 9216
+        },
+        "date": "2020-06-03",
+        "grade": 84
+    },
+    {
+        "unique_id": 42,
+        "course": "Math 101",
+        "student": {
+            "firstname": "Kenneth",
+            "lastname": "Miller",
+            "id": 2867
+        },
+        "date": "2021-09-16",
+        "grade": 92
+    },
+    {
+        "unique_id": 43,
+        "course": "History 303",
+        "student": {
+            "firstname": "Adam",
+            "lastname": "Blevins",
+            "id": 1450
+        },
+        "date": "2021-11-15",
+        "grade": 86
+    },
+    {
+        "unique_id": 44,
+        "course": "Physics 505",
+        "student": {
+            "firstname": "Lauren",
+            "lastname": "Jenkins",
+            "id": 5257
+        },
+        "date": "2021-01-05",
+        "grade": 55
+    },
+    {
+        "unique_id": 45,
+        "course": "Physics 505",
+        "student": {
+            "firstname": "Devin",
+            "lastname": "Jordan",
+            "id": 7879
+        },
+        "date": "2020-08-13",
+        "grade": 99
+    },
+    {
+        "unique_id": 46,
+        "course": "Math 101",
+        "student": {
+            "firstname": "John",
+            "lastname": "Morgan",
+            "id": 5413
+        },
+        "date": "2020-03-05",
+        "grade": 70
+    },
+    {
+        "unique_id": 47,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Marcia",
+            "lastname": "Miller",
+            "id": 6842
+        },
+        "date": "2023-08-24",
+        "grade": 87
+    },
+    {
+        "unique_id": 48,
+        "course": "History 303",
+        "student": {
+            "firstname": "Renee",
+            "lastname": "Morales",
+            "id": 9322
+        },
+        "date": "2022-06-19",
+        "grade": 73
+    },
+    {
+        "unique_id": 49,
+        "course": "Math 101",
+        "student": {
+            "firstname": "Sierra",
+            "lastname": "Taylor",
+            "id": 3557
+        },
+        "date": "2020-02-09",
+        "grade": 73
+    },
+    {
+        "unique_id": 50,
+        "course": "Math 101",
+        "student": {
+            "firstname": "Margaret",
+            "lastname": "Burch",
+            "id": 3516
+        },
+        "date": "2020-04-17",
+        "grade": 69
+    },
+    {
+        "unique_id": 51,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Eric",
+            "lastname": "Lawson",
+            "id": 4952
+        },
+        "date": "2020-01-28",
+        "grade": 93
+    },
+    {
+        "unique_id": 52,
+        "course": "CS 707",
+        "student": {
+            "firstname": "Catherine",
+            "lastname": "Lindsey",
+            "id": 6342
+        },
+        "date": "2021-06-07",
+        "grade": 85
+    },
+    {
+        "unique_id": 53,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Gavin",
+            "lastname": "Fletcher",
+            "id": 1973
+        },
+        "date": "2023-02-08",
+        "grade": 68
+    },
+    {
+        "unique_id": 54,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Cassidy",
+            "lastname": "Robinson",
+            "id": 3327
+        },
+        "date": "2022-10-17",
+        "grade": 91
+    },
+    {
+        "unique_id": 55,
+        "course": "CS 707",
+        "student": {
+            "firstname": "Karen",
+            "lastname": "Young",
+            "id": 1048
+        },
+        "date": "2020-03-06",
+        "grade": 84
+    },
+    {
+        "unique_id": 56,
+        "course": "CS 707",
+        "student": {
+            "firstname": "Timothy",
+            "lastname": "Cox",
+            "id": 2211
+        },
+        "date": "2021-08-28",
+        "grade": 53
+    },
+    {
+        "unique_id": 57,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Angela",
+            "lastname": "Solomon",
+            "id": 7900
+        },
+        "date": "2021-06-11",
+        "grade": 80
+    },
+    {
+        "unique_id": 58,
+        "course": "History 303",
+        "student": {
+            "firstname": "Elizabeth",
+            "lastname": "Williams",
+            "id": 3545
+        },
+        "date": "2020-08-20",
+        "grade": 68
+    },
+    {
+        "unique_id": 59,
+        "course": "Physics 505",
+        "student": {
+            "firstname": "Katherine",
+            "lastname": "Stephenson",
+            "id": 6944
+        },
+        "date": "2023-10-25",
+        "grade": 75
+    },
+    {
+        "unique_id": 60,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Heather",
+            "lastname": "Little",
+            "id": 9823
+        },
+        "date": "2023-08-15",
+        "grade": 100
+    },
+    {
+        "unique_id": 61,
+        "course": "History 303",
+        "student": {
+            "firstname": "Tony",
+            "lastname": "Glenn",
+            "id": 8003
+        },
+        "date": "2021-12-28",
+        "grade": 85
+    },
+    {
+        "unique_id": 62,
+        "course": "CS 707",
+        "student": {
+            "firstname": "Samuel",
+            "lastname": "Wilson",
+            "id": 4818
+        },
+        "date": "2020-05-13",
+        "grade": 62
+    },
+    {
+        "unique_id": 63,
+        "course": "English 202",
+        "student": {
+            "firstname": "Eric",
+            "lastname": "Wilson",
+            "id": 6901
+        },
+        "date": "2020-07-19",
+        "grade": 87
+    },
+    {
+        "unique_id": 64,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Kristen",
+            "lastname": "Gutierrez",
+            "id": 7272
+        },
+        "date": "2022-06-28",
+        "grade": 69
+    },
+    {
+        "unique_id": 65,
+        "course": "History 303",
+        "student": {
+            "firstname": "Antonio",
+            "lastname": "Padilla",
+            "id": 4830
+        },
+        "date": "2020-03-30",
+        "grade": 64
+    },
+    {
+        "unique_id": 66,
+        "course": "Math 101",
+        "student": {
+            "firstname": "Elizabeth",
+            "lastname": "May",
+            "id": 3503
+        },
+        "date": "2021-06-09",
+        "grade": 78
+    },
+    {
+        "unique_id": 67,
+        "course": "English 202",
+        "student": {
+            "firstname": "James",
+            "lastname": "Lamb",
+            "id": 3068
+        },
+        "date": "2023-12-30",
+        "grade": 90
+    },
+    {
+        "unique_id": 68,
+        "course": "History 303",
+        "student": {
+            "firstname": "Jacqueline",
+            "lastname": "Vasquez",
+            "id": 6990
+        },
+        "date": "2022-12-13",
+        "grade": 96
+    },
+    {
+        "unique_id": 69,
+        "course": "English 202",
+        "student": {
+            "firstname": "Jonathan",
+            "lastname": "Rodriguez",
+            "id": 1039
+        },
+        "date": "2022-01-20",
+        "grade": 52
+    },
+    {
+        "unique_id": 70,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Miguel",
+            "lastname": "Williams",
+            "id": 8089
+        },
+        "date": "2022-06-16",
+        "grade": 72
+    },
+    {
+        "unique_id": 71,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Jacqueline",
+            "lastname": "Sullivan",
+            "id": 2229
+        },
+        "date": "2022-03-24",
+        "grade": 100
+    },
+    {
+        "unique_id": 72,
+        "course": "Math 101",
+        "student": {
+            "firstname": "Andrew",
+            "lastname": "Stewart",
+            "id": 4351
+        },
+        "date": "2020-11-29",
+        "grade": 66
+    },
+    {
+        "unique_id": 73,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Brianna",
+            "lastname": "Perkins",
+            "id": 1234
+        },
+        "date": "2020-04-26",
+        "grade": 79
+    },
+    {
+        "unique_id": 74,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Jonathon",
+            "lastname": "King",
+            "id": 2636
+        },
+        "date": "2021-04-18",
+        "grade": 92
+    },
+    {
+        "unique_id": 75,
+        "course": "Math 101",
+        "student": {
+            "firstname": "Craig",
+            "lastname": "Davis",
+            "id": 6352
+        },
+        "date": "2023-11-15",
+        "grade": 87
+    },
+    {
+        "unique_id": 76,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Christine",
+            "lastname": "Rogers",
+            "id": 6440
+        },
+        "date": "2022-03-15",
+        "grade": 50
+    },
+    {
+        "unique_id": 77,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "William",
+            "lastname": "Campbell",
+            "id": 8290
+        },
+        "date": "2023-04-19",
+        "grade": 88
+    },
+    {
+        "unique_id": 78,
+        "course": "English 202",
+        "student": {
+            "firstname": "Courtney",
+            "lastname": "Walker",
+            "id": 4918
+        },
+        "date": "2020-12-06",
+        "grade": 82
+    },
+    {
+        "unique_id": 79,
+        "course": "Math 101",
+        "student": {
+            "firstname": "Ethan",
+            "lastname": "Wiggins",
+            "id": 4665
+        },
+        "date": "2023-12-11",
+        "grade": 63
+    },
+    {
+        "unique_id": 80,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Nancy",
+            "lastname": "Fischer",
+            "id": 3493
+        },
+        "date": "2021-06-01",
+        "grade": 74
+    },
+    {
+        "unique_id": 81,
+        "course": "English 202",
+        "student": {
+            "firstname": "Marissa",
+            "lastname": "Moreno",
+            "id": 9501
+        },
+        "date": "2023-06-11",
+        "grade": 61
+    },
+    {
+        "unique_id": 82,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Matthew",
+            "lastname": "Kirby",
+            "id": 2865
+        },
+        "date": "2022-06-14",
+        "grade": 72
+    },
+    {
+        "unique_id": 83,
+        "course": "English 202",
+        "student": {
+            "firstname": "Brandon",
+            "lastname": "Moore",
+            "id": 1001
+        },
+        "date": "2023-02-17",
+        "grade": 75
+    },
+    {
+        "unique_id": 84,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Ann",
+            "lastname": "Moreno",
+            "id": 4843
+        },
+        "date": "2023-01-24",
+        "grade": 85
+    },
+    {
+        "unique_id": 85,
+        "course": "Math 101",
+        "student": {
+            "firstname": "Nancy",
+            "lastname": "Shea",
+            "id": 5138
+        },
+        "date": "2021-07-17",
+        "grade": 87
+    },
+    {
+        "unique_id": 86,
+        "course": "Physics 505",
+        "student": {
+            "firstname": "Lisa",
+            "lastname": "Ortega",
+            "id": 2420
+        },
+        "date": "2023-07-30",
+        "grade": 63
+    },
+    {
+        "unique_id": 87,
+        "course": "Physics 505",
+        "student": {
+            "firstname": "Nicole",
+            "lastname": "Rodriguez",
+            "id": 5172
+        },
+        "date": "2021-09-26",
+        "grade": 56
+    },
+    {
+        "unique_id": 88,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Linda",
+            "lastname": "Day",
+            "id": 2738
+        },
+        "date": "2020-05-06",
+        "grade": 60
+    },
+    {
+        "unique_id": 89,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Faith",
+            "lastname": "Marsh",
+            "id": 9261
+        },
+        "date": "2022-10-09",
+        "grade": 94
+    },
+    {
+        "unique_id": 90,
+        "course": "Chemistry 606",
+        "student": {
+            "firstname": "Andres",
+            "lastname": "Madden",
+            "id": 4344
+        },
+        "date": "2021-12-11",
+        "grade": 76
+    },
+    {
+        "unique_id": 91,
+        "course": "CS 707",
+        "student": {
+            "firstname": "Adrian",
+            "lastname": "Mason",
+            "id": 6458
+        },
+        "date": "2021-03-26",
+        "grade": 54
+    },
+    {
+        "unique_id": 92,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Christine",
+            "lastname": "Schaefer",
+            "id": 8620
+        },
+        "date": "2020-12-24",
+        "grade": 69
+    },
+    {
+        "unique_id": 93,
+        "course": "English 202",
+        "student": {
+            "firstname": "Thomas",
+            "lastname": "Clark",
+            "id": 3777
+        },
+        "date": "2023-08-18",
+        "grade": 60
+    },
+    {
+        "unique_id": 94,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Samantha",
+            "lastname": "Bennett",
+            "id": 1067
+        },
+        "date": "2021-08-04",
+        "grade": 99
+    },
+    {
+        "unique_id": 95,
+        "course": "CS 707",
+        "student": {
+            "firstname": "Stephanie",
+            "lastname": "Walker",
+            "id": 1516
+        },
+        "date": "2023-09-29",
+        "grade": 65
+    },
+    {
+        "unique_id": 96,
+        "course": "Physics 505",
+        "student": {
+            "firstname": "Elijah",
+            "lastname": "Wright",
+            "id": 2169
+        },
+        "date": "2021-07-10",
+        "grade": 92
+    },
+    {
+        "unique_id": 97,
+        "course": "English 202",
+        "student": {
+            "firstname": "Taylor",
+            "lastname": "George",
+            "id": 3450
+        },
+        "date": "2020-10-15",
+        "grade": 100
+    },
+    {
+        "unique_id": 98,
+        "course": "Physics 505",
+        "student": {
+            "firstname": "Julia",
+            "lastname": "Johnson",
+            "id": 4743
+        },
+        "date": "2023-05-11",
+        "grade": 66
+    },
+    {
+        "unique_id": 99,
+        "course": "English 202",
+        "student": {
+            "firstname": "Ariana",
+            "lastname": "Lewis",
+            "id": 7225
+        },
+        "date": "2020-01-25",
+        "grade": 99
+    },
+    {
+        "unique_id": 100,
+        "course": "Biology 404",
+        "student": {
+            "firstname": "Caroline",
+            "lastname": "Cruz",
+            "id": 9079
+        },
+        "date": "2023-09-02",
+        "grade": 95
+    }
+]
