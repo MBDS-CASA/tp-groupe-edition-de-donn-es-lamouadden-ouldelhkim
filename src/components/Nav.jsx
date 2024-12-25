@@ -22,7 +22,8 @@ import {
   Assignment,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { HomeIcon } from "lucide-react";
+import { BarChartIcon, HomeIcon } from "lucide-react";
+import Statistics from "./pages/statistique/Statistique";
 
 const Nav = () => {
   const theme = useTheme();
@@ -35,6 +36,7 @@ const Nav = () => {
     { text: "Note", icon: <NotesIcon />, route: "/notes" },
     { text: "Etudiants", icon: <StudentsIcon />, route: "/etudiants" },
     { text: "Matières", icon: <SubjectsIcon />, route: "/matieres" },
+    { text: "Statistique", icon: <BarChartIcon />, route: "/stats" },
     { text: "A propos", icon: <AboutIcon />, route: "/apropos" },
   ];
 

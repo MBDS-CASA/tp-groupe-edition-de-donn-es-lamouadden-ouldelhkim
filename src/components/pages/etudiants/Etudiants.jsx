@@ -9,9 +9,10 @@ import {
   Paper,
   Typography,
   TablePagination,
+  Button,
 } from "@mui/material";
 
-const Etudiants = ({ data }) => {
+const Etudiants = ({ data, onDeleteStudent, onEditStudent }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -45,6 +46,7 @@ const Etudiants = ({ data }) => {
             <TableCell style={{ fontWeight: "bold" }}>ID</TableCell>
             <TableCell style={{ fontWeight: "bold" }}>First Name</TableCell>
             <TableCell style={{ fontWeight: "bold" }}>Last Name</TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -60,6 +62,26 @@ const Etudiants = ({ data }) => {
                 <TableCell>{element?.student.id}</TableCell>
                 <TableCell>{element?.student.firstname}</TableCell>
                 <TableCell>{element?.student.lastname}</TableCell>
+                <TableCell>
+                  <Button
+                    color="primary"
+                    onClick={() =>
+                      onEditStudent({
+                        id: element.student.id,
+                        firstname: element.student.firstname,
+                        lastname: element.student.lastname,
+                      })
+                    }
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    color="secondary"
+                    onClick={() => onDeleteStudent(element.student.id)}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>

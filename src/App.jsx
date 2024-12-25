@@ -11,6 +11,7 @@ import Apropos from "./components/pages/Apropos";
 import StudentManager from "./components/pages/etudiants/StudentManager";
 import NoteManager from "./components/pages/Note/NoteManager";
 import CourseManager from "./components/pages/courses/CourseManager";
+import Statistics from "./components/pages/statistique/Statistique";
 
 // Composant Home
 const Home = ({ randomItem, onGetRandomItem }) => (
@@ -73,6 +74,7 @@ function App() {
             <Route path="/notes" element={<NoteManager data={data} />} />
             <Route path="/etudiants" element={<StudentManager data={data} />} />
             <Route path="/matieres" element={<CourseManager data={data} />} />
+            <Route path="/stats" element={<Statistics />} />
             <Route path="/apropos" element={<Apropos />} />
             {/* Redirection des routes inconnues vers la page d'accueil */}
             <Route path="*" element={<Navigate to="/" replace />} />
