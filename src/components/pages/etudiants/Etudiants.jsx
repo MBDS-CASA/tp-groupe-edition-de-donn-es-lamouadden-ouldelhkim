@@ -13,7 +13,7 @@ import {
 
 const Etudiants = ({ data }) => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5); // Set initial rows per page
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -21,13 +21,16 @@ const Etudiants = ({ data }) => {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0); // Reset to the first page when rows per page changes
+    setPage(0);
   };
 
   return (
     <TableContainer
       component={Paper}
-      style={{ margin: "20px 0", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
+      style={{
+        margin: "20px 0",
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+      }}
     >
       <Typography
         variant="h6"

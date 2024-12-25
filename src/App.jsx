@@ -7,10 +7,11 @@ import { getRandomItem as getRandomItemFromUtils } from "./utils/trie_data";
 import ItemDisplay from "./components/ItemDisplay";
 import Nav from "./components/Nav";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import Etudiants from "./components/pages/Etudiants";
 import Apropos from "./components/pages/Apropos";
 import Matieres from "./components/pages/Matieres";
 import Notes from "./components/pages/Notes";
+import Etudiants from "./components/pages/etudiants/Etudiants";
+import StudentManager from "./components/pages/etudiants/StudentManager";
 
 // Home component moved outside App to avoid re-creation
 const Home = ({ randomItem, onGetRandomItem }) => (
@@ -70,7 +71,7 @@ function App() {
               }
             />
             <Route path="/notes" element={<Notes data={data} />} />
-            <Route path="/etudiants" element={<Etudiants data={data} />} />
+            <Route path="/etudiants" element={<StudentManager data={data} />} />
             <Route path="/matieres" element={<Matieres data={data} />} />
             <Route path="/apropos" element={<Apropos />} />
             {/* Redirect any unknown routes to home */}
