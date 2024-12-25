@@ -54,7 +54,6 @@ const Course = ({ data, onDelete, onEdit }) => {
           <TableRow style={{ backgroundColor: "#f5f5f5" }}>
             <TableCell style={{ fontWeight: "bold" }}>Unique ID</TableCell>
             <TableCell style={{ fontWeight: "bold" }}>Nom du Cours</TableCell>
-            <TableCell style={{ fontWeight: "bold" }}>Description</TableCell>
             <TableCell style={{ fontWeight: "bold" }}>Actions</TableCell>
           </TableRow>
         </TableHead>
@@ -68,7 +67,6 @@ const Course = ({ data, onDelete, onEdit }) => {
             >
               <TableCell>{element?.unique_id}</TableCell>
               <TableCell>{element?.courseName}</TableCell>
-              <TableCell>{element?.description}</TableCell>
               <TableCell>
                 <Tooltip title="Modifier">
                   <IconButton 

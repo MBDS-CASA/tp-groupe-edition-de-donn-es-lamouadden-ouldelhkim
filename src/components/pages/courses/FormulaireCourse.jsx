@@ -82,17 +82,7 @@ const FormulaireCourse = ({
           required
           margin="normal"
         />
-        <TextField
-          fullWidth
-          label="Description"
-          name="description"
-          value={formData.description}
-          onChange={handleInputChange}
-          required
-          margin="normal"
-          multiline
-          rows={3}
-        />
+       
         <Button
           type="submit"
           variant="contained"
