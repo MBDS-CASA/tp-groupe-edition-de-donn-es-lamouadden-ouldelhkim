@@ -8,13 +8,12 @@ import ItemDisplay from "./components/ItemDisplay";
 import Nav from "./components/Nav";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Apropos from "./components/pages/Apropos";
-import Matieres from "./components/pages/Matieres";
-import Notes from "./components/pages/Notes";
-import Etudiants from "./components/pages/etudiants/Etudiants";
 import StudentManager from "./components/pages/etudiants/StudentManager";
+import NoteManager from "./components/pages/Note/NoteManager";
+import CourseManager from "./components/pages/courses/CourseManager";
 import Statistics from "./components/pages/statistique/Statistique";
 
-// Home component moved outside App to avoid re-creation
+// Composant Home
 const Home = ({ randomItem, onGetRandomItem }) => (
   <>
     <MainContent />
@@ -71,12 +70,13 @@ function App() {
                 />
               }
             />
-            <Route path="/notes" element={<Notes data={data} />} />
+            {/* On passe data à NoteManager si on veut l'utiliser */}
+            <Route path="/notes" element={<NoteManager data={data} />} />
             <Route path="/etudiants" element={<StudentManager data={data} />} />
-            <Route path="/matieres" element={<Matieres data={data} />} />
+            <Route path="/matieres" element={<CourseManager data={data} />} />
             <Route path="/stats" element={<Statistics />} />
             <Route path="/apropos" element={<Apropos />} />
-            {/* Redirect any unknown routes to home */}
+            {/* Redirection des routes inconnues vers la page d'accueil */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
