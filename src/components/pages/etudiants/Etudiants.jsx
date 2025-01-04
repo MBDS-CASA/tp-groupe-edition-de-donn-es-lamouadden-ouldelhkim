@@ -21,11 +21,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
 const Etudiants = ({ data, onDeleteStudent, onEditStudent }) => {
+  console.log("Data reçue:", data);
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [deleteDialog, setDeleteDialog] = useState({
     open: false,
-    studentId: null,
+    _id: null,
   });
 
   const handleChangePage = (event, newPage) => {
@@ -38,12 +40,12 @@ const Etudiants = ({ data, onDeleteStudent, onEditStudent }) => {
   };
 
   const handleDeleteClick = (id) => {
-    setDeleteDialog({ open: true, studentId: id });
+    setDeleteDialog({ open: true, _id: id });
   };
 
   const handleDeleteConfirm = () => {
-    onDeleteStudent(deleteDialog.studentId);
-    setDeleteDialog({ open: false, studentId: null });
+    onDeleteStudent(deleteDialog._id); // Correction ici : utilisation de `_id`
+    setDeleteDialog({ open: false, _id: null });
   };
 
   return (
@@ -77,23 +79,23 @@ const Etudiants = ({ data, onDeleteStudent, onEditStudent }) => {
               ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((element, index) => (
                 <TableRow
-                  key={element?.student.id}
+                  key={element?._id}
                   style={{
                     backgroundColor: index % 2 === 0 ? "#fafafa" : "white",
                   }}
                 >
-                  <TableCell>{element?.student.id}</TableCell>
-                  <TableCell>{element?.student.firstname}</TableCell>
-                  <TableCell>{element?.student.lastname}</TableCell>
+                  <TableCell>{element?._id}</TableCell>
+                  <TableCell>{element?.firstName}</TableCell>
+                  <TableCell>{element?.lastName}</TableCell>
                   <TableCell>
                     <Tooltip title="Edit Student">
                       <IconButton
                         color="primary"
                         onClick={() =>
                           onEditStudent({
-                            id: element.student.id,
-                            firstname: element.student.firstname,
-                            lastname: element.student.lastname,
+                            id: element?._id,
+                            firstName: element?.firstName,
+                            lastName: element?.lastName, // Correction ici
                           })
                         }
                       >
@@ -103,7 +105,7 @@ const Etudiants = ({ data, onDeleteStudent, onEditStudent }) => {
                     <Tooltip title="Delete Student">
                       <IconButton
                         color="error"
-                        onClick={() => handleDeleteClick(element.student.id)}
+                        onClick={() => handleDeleteClick(element?._id)}
                       >
                         <DeleteIcon />
                       </IconButton>
@@ -127,15 +129,15 @@ const Etudiants = ({ data, onDeleteStudent, onEditStudent }) => {
       {/* Delete Confirmation Dialog */}
       <Dialog
         open={deleteDialog.open}
-        onClose={() => setDeleteDialog({ open: false, studentId: null })}
+        onClose={() => setDeleteDialog({ open: false, _id: null })}
       >
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
-          Are you sure you want to delete this student?
+          Are you sure you want to delete this student with ID: {deleteDialog._id}?
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={() => setDeleteDialog({ open: false, studentId: null })}
+            onClick={() => setDeleteDialog({ open: false, _id: null })}
           >
             Cancel
           </Button>

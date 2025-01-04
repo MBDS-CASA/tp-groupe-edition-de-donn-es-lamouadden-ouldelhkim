@@ -28,6 +28,7 @@ const Note = ({ data, onDelete, onEdit }) => {
     setPage(0);
   };
 
+  // Pagination : on détermine l'intervalle (startIndex, endIndex)
   const startIndex = page * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const currentData = data?.slice(startIndex, endIndex);
@@ -45,52 +46,81 @@ const Note = ({ data, onDelete, onEdit }) => {
         component="div"
         style={{ textAlign: "center", padding: "10px", fontWeight: "bold" }}
       >
-        List of Notes
+        List of Grades
       </Typography>
+
       <Table>
         <TableHead>
           <TableRow style={{ backgroundColor: "#f5f5f5" }}>
-            <TableCell style={{ fontWeight: "bold" }}>Unique ID</TableCell>
-            <TableCell style={{ fontWeight: "bold" }}>Date</TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>ID</TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>Student</TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>Course</TableCell>
             <TableCell style={{ fontWeight: "bold" }}>Grade</TableCell>
             <TableCell style={{ fontWeight: "bold" }}>Actions</TableCell>
           </TableRow>
         </TableHead>
+
         <TableBody>
-          {currentData?.map((element, index) => (
-            <TableRow
-              key={element?.student.id}
-              style={{
-                backgroundColor: index % 2 === 0 ? "#fafafa" : "white",
-              }}
-            >
-              <TableCell>{element?.unique_id}</TableCell>
-              <TableCell>{element?.date}</TableCell>
-              <TableCell>{element?.grade}</TableCell>
-              <TableCell>
-                <Tooltip title="Edit">
-                  <IconButton
-                    onClick={() => onEdit(element)}
-                    size="small"
-                    color="primary"
-                  >
-                    <EditIcon />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Delete">
-                  <IconButton
-                    onClick={() => onDelete(element.unique_id)}
-                    size="small"
-                    color="error"
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </Tooltip>
-              </TableCell>
-            </TableRow>
-          ))}
+          {currentData?.map((element, index) => {
+            // Exemple d'ID séquentiel : on part de 1 pour la première ligne de la page
+            // "numéro d'affichage" = index local + 1 + décalage de pagination
+            const rowNumber = startIndex + index + 1;
+
+            // On peut quand même récupérer un identifiant interne pour la clé
+            // s'il existe, sinon on utilise rowNumber comme fallback
+            const rowKey = element?._id || element?.unique_id || rowNumber;
+
+            return (
+              <TableRow
+                key={rowKey}
+                style={{
+                  backgroundColor: index % 2 === 0 ? "#fafafa" : "white",
+                }}
+              >
+                {/* On affiche l'ID séquentiel (rowNumber) */}
+                <TableCell>{rowNumber}</TableCell>
+
+                <TableCell>
+                  {element?.student ? element.student : "No student"}
+                </TableCell>
+
+                <TableCell>
+                  {element?.course ? element.course : "No course"}
+                </TableCell>
+
+                <TableCell>
+                  {typeof element?.grade !== "undefined"
+                    ? element.grade
+                    : "No grade"}
+                </TableCell>
+
+                <TableCell>
+                  <Tooltip title="Edit">
+                    <IconButton
+                      onClick={() => onEdit(element)}
+                      size="small"
+                      color="primary"
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </Tooltip>
+
+                  <Tooltip title="Delete">
+                    <IconButton
+                      onClick={() => onDelete(element.unique_id)}
+                      size="small"
+                      color="error"
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </Tooltip>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
+
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"

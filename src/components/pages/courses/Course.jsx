@@ -12,8 +12,8 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Course = ({ data, onDelete, onEdit }) => {
   const [page, setPage] = useState(0);
@@ -32,7 +32,7 @@ const Course = ({ data, onDelete, onEdit }) => {
   const endIndex = startIndex + rowsPerPage;
   const currentData = data?.slice(startIndex, endIndex);
 
-  console.log("Données reçues par Course :", data);
+  console.log("Données reçues par <Course> :", data);
 
   return (
     <TableContainer
@@ -47,31 +47,33 @@ const Course = ({ data, onDelete, onEdit }) => {
         component="div"
         style={{ textAlign: "center", padding: "10px", fontWeight: "bold" }}
       >
-        Liste des Cours
+        List of courses
       </Typography>
+
       <Table>
         <TableHead>
           <TableRow style={{ backgroundColor: "#f5f5f5" }}>
-            <TableCell style={{ fontWeight: "bold" }}>Unique ID</TableCell>
-            <TableCell style={{ fontWeight: "bold" }}>Nom du Cours</TableCell>
-            <TableCell style={{ fontWeight: "bold" }}>Description</TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>ID</TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>Name of course</TableCell>
+            <TableCell style={{ fontWeight: "bold" }}>Code</TableCell>
             <TableCell style={{ fontWeight: "bold" }}>Actions</TableCell>
           </TableRow>
         </TableHead>
+
         <TableBody>
           {currentData?.map((element, index) => (
             <TableRow
-              key={element?.unique_id}
+              key={element?._id}
               style={{
                 backgroundColor: index % 2 === 0 ? "#fafafa" : "white",
               }}
             >
-              <TableCell>{element?.unique_id}</TableCell>
-              <TableCell>{element?.courseName}</TableCell>
-              <TableCell>{element?.description}</TableCell>
+              <TableCell>{element?._id}</TableCell>
+              <TableCell>{element?.name}</TableCell>
+              <TableCell>{element?.code}</TableCell>
               <TableCell>
                 <Tooltip title="Modifier">
-                  <IconButton 
+                  <IconButton
                     onClick={() => onEdit(element)}
                     size="small"
                     color="primary"
@@ -81,7 +83,7 @@ const Course = ({ data, onDelete, onEdit }) => {
                 </Tooltip>
                 <Tooltip title="Supprimer">
                   <IconButton
-                    onClick={() => onDelete(element.unique_id)}
+                    onClick={() => onDelete(element._id)}
                     size="small"
                     color="error"
                   >
@@ -93,6 +95,7 @@ const Course = ({ data, onDelete, onEdit }) => {
           ))}
         </TableBody>
       </Table>
+
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"

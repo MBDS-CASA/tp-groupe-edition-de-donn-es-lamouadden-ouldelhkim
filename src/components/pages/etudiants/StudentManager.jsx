@@ -11,14 +11,24 @@ const StudentManager = () => {
   const [feedback, setFeedback] = useState({ open: false, message: '', type: 'success' });
 
   useEffect(() => {
-    fetch("/data.json")
+    fetch("http://localhost:8010/api/students")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
       })
+
+      .then((data) => {
+        // La fonction filter actuelle ne retourne rien car il manque un return
+        return data.filter(d => {
+          return d["firstName"] && d["lastName"] // Ajout du return ici
+        });
+      }) 
+
+      
       .then((jsonData) => {
+        console.log(jsonData)
         setData(jsonData);
         setLoading(false);
       })

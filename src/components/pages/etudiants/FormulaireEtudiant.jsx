@@ -1,114 +1,62 @@
 import React, { useState, useEffect } from "react";
-import { 
-  Box, 
-  TextField, 
-  Button, 
-  Typography, 
-  Card, 
-  CardContent 
-} from "@mui/material";
+import FormulaireEtudiant from "./FormulaireEtudiant";
+import Etudiants from "./Etudiants";
 
-const FormulaireEtudiant = ({ data, onAddStudent, editingStudent, onModifyStudent }) => {
-  const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-  });
+const StudentManager = () => {
+  const [students, setStudents] = useState([]);
+  const [editingStudent, setEditingStudent] = useState(null);
 
+  // Charger les étudiants depuis l'API
   useEffect(() => {
-    if (editingStudent) {
-      setFormData({
-        firstname: editingStudent.firstname,
-        lastname: editingStudent.lastname,
-      });
-    } else {
-      setFormData({
-        firstname: "",
-        lastname: "",
-      });
-    }
-  }, [editingStudent]);
+    fetch("http://localhost:8010/api/students")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Erreur lors du chargement des étudiants");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setStudents(data); // Met à jour la liste des étudiants
+      })
+      .catch((error) => console.error("Erreur :", error));
+  }, []);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  // Ajouter un étudiant (localement)
+  const handleAddStudent = (newStudent) => {
+    const newId = Math.random().toString(36).substr(2, 9); // Génère un ID unique local
+    const newStudentWithId = { ...newStudent, _id: newId };
+    setStudents([...students, newStudentWithId]); // Ajoute l'étudiant à la liste locale
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (editingStudent) {
-      onModifyStudent({
-        id: editingStudent.id,
-        firstname: formData.firstname,
-        lastname: formData.lastname,
-      });
-    } else {
-      const newStudent = {
-        unique_id: data.length + 1,
-        course: "New Course",
-        student: {
-          firstname: formData.firstname,
-          lastname: formData.lastname,
-          id: Date.now(),
-        },
-        date: new Date().toISOString().split("T")[0],
-        grade: null,
-      };
-      onAddStudent(newStudent);
-    }
-    setFormData({ firstname: "", lastname: "" });
+  // Modifier un étudiant (localement)
+  const handleModifyStudent = (updatedStudent) => {
+    setStudents(
+      students.map((student) =>
+        student._id === updatedStudent._id ? updatedStudent : student
+      )
+    );
+    setEditingStudent(null); // Arrête l'édition après la modification
+  };
+
+  // Supprimer un étudiant (localement)
+  const handleDeleteStudent = (id) => {
+    setStudents(students.filter((student) => student._id !== id));
   };
 
   return (
-    <Card sx={{ maxWidth: 600, margin: '20px auto', padding: 2 }}>
-      <CardContent>
-        <Typography variant="h5" component="h2" gutterBottom>
-          {editingStudent ? "Edit Student" : "Add Student"}
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
-          <TextField
-            fullWidth
-            label="First Name"
-            name="firstname"
-            value={formData.firstname}
-            onChange={handleInputChange}
-            required
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            label="Last Name"
-            name="lastname"
-            value={formData.lastname}
-            onChange={handleInputChange}
-            required
-            margin="normal"
-            variant="outlined"
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color={editingStudent ? "success" : "primary"}
-            sx={{ mt: 2 }}
-            fullWidth
-          >
-            {editingStudent ? "Save Changes" : "Add Student"}
-          </Button>
-          {editingStudent && (
-            <Button
-              variant="outlined"
-              color="secondary"
-              sx={{ mt: 1 }}
-              fullWidth
-              onClick={() => onModifyStudent(null)}
-            >
-              Cancel Edit
-            </Button>
-          )}
-        </Box>
-      </CardContent>
-    </Card>
+    <div>
+      <FormulaireEtudiant
+        onAddStudent={handleAddStudent}
+        editingStudent={editingStudent}
+        onModifyStudent={handleModifyStudent}
+      />
+      <Etudiants
+        data={students}
+        onDeleteStudent={handleDeleteStudent}
+        onEditStudent={setEditingStudent}
+      />
+    </div>
   );
 };
 
-export default FormulaireEtudiant;
+export default StudentManager;

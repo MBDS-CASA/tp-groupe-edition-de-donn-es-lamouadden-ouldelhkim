@@ -7,9 +7,9 @@ const NoteManager = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editingNote, setEditingNote] = useState(null);
-
+  // Au montage, on récupère les données depuis l'API
   useEffect(() => {
-    fetch("/data.json")
+    fetch("http://localhost:8010/api/grades")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -17,7 +17,7 @@ const NoteManager = () => {
         return response.json();
       })
       .then((jsonData) => {
-        setData(jsonData);
+        setData(jsonData); // jsonData doit être un tableau
         setLoading(false);
       })
       .catch((error) => {
@@ -27,23 +27,24 @@ const NoteManager = () => {
       });
   }, []);
 
+  // Ajout local d'une nouvelle note
   const addNote = (newNote) => {
     setData((prev) => [...prev, newNote]);
   };
 
-  const deleteNote = (uniqueId) => {
-    setData((prev) => prev.filter(note => note.unique_id !== uniqueId));
+  const deleteNote = (id) => {
+    setData((prev) => prev.filter((note) => note.unique_id !== id));
   };
-
+  
+  // Mise à jour locale
   const updateNote = (updatedNote) => {
-    setData((prev) => 
-      prev.map(note => 
-        note.unique_id === updatedNote.unique_id ? updatedNote : note
-      )
+    setData((prev) =>
+      prev.map((note) => (note._id === updatedNote._id ? updatedNote : note))
     );
     setEditingNote(null);
   };
 
+  // Passe la note choisie en mode "édition"
   const startEditing = (note) => {
     setEditingNote(note);
   };
@@ -52,14 +53,15 @@ const NoteManager = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <FormulaireNote 
-        data={data} 
+    <div style={{ margin: "20px" }}>
+      <FormulaireNote
+        data={data}
         onAddNote={addNote}
         editingNote={editingNote}
         onUpdateNote={updateNote}
       />
-      <Note 
+
+      <Note
         data={data}
         onDelete={deleteNote}
         onEdit={startEditing}
