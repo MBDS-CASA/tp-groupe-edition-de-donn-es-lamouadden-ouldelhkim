@@ -27,7 +27,7 @@ import Statistics from "./pages/statistique/Statistique";
 
 const Nav = () => {
   const theme = useTheme();
-  const navigate = useNavigate(); // React Router hook for navigation
+  const navigate = useNavigate(); 
   const [selectedItem, setSelectedItem] = useState(null);
   const [openNotes, setOpenNotes] = useState(false);
 
@@ -46,7 +46,7 @@ const Nav = () => {
       setOpenNotes(!openNotes);
     }
     if (item.route) {
-      navigate(item.route); // Navigate to the route associated with the item
+      navigate(item.route); 
     }
   };
 

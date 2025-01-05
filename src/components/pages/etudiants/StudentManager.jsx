@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import Etudiants from "./Etudiants";
 import FormulaireEtudiant from "./FormulaireEtudiant";
+import Etudiants from "./Etudiants";
 import { Alert, Snackbar } from "@mui/material";
 
 const StudentManager = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [students, setStudents] = useState([]);
   const [editingStudent, setEditingStudent] = useState(null);
-  const [feedback, setFeedback] = useState({ open: false, message: '', type: 'success' });
+  const [feedback, setFeedback] = useState({
+    open: false,
+    message: "",
+    type: "success",
+  });
 
   useEffect(() => {
     fetch("http://localhost:8010/api/students")
@@ -18,97 +20,113 @@ const StudentManager = () => {
         }
         return response.json();
       })
-
       .then((data) => {
-        // La fonction filter actuelle ne retourne rien car il manque un return
-        return data.filter(d => {
-          return d["firstName"] && d["lastName"] // Ajout du return ici
-        });
-      }) 
-
-      
-      .then((jsonData) => {
-        console.log(jsonData)
-        setData(jsonData);
-        setLoading(false);
+        setStudents(data);
       })
       .catch((error) => {
         console.error("Error loading data:", error);
-        setError(error.message);
-        setLoading(false);
+        setFeedback({
+          open: true,
+          message: `Erreur de chargement : ${error.message}`,
+          type: "error",
+        });
       });
   }, []);
-
-  const addStudent = (newStudent) => {
-    setData([...data, newStudent]);
+  const handleAddStudent = (createdStudent) => {
+    setStudents((prev) => [...prev, createdStudent]);
     setFeedback({
       open: true,
-      message: 'Student added successfully',
-      type: 'success'
+      message: "Student added successfully",
+      type: "success",
     });
   };
-
-  const deleteStudent = (id) => {
-    setData(data.filter((student) => student.student.id !== id));
-    setFeedback({
-      open: true,
-      message: 'Student deleted successfully',
-      type: 'success'
-    });
-  };
-
-  const modifyStudent = (updatedStudent) => {
-    setData(
-      data.map((student) =>
-        student.student.id === updatedStudent.id
-          ? { ...student, student: updatedStudent }
-          : student
-      )
-    );
-    setEditingStudent(null);
-    setFeedback({
-      open: true,
-      message: 'Student updated successfully',
-      type: 'success'
-    });
-  };
-
-  const handleCloseFeedback = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
+  const handleDeleteStudent = async (_id) => {
+    try {
+      const response = await fetch(`http://localhost:8010/api/students/${_id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        throw new Error(`Erreur serveur : ${response.status}`);
+      }
+      setStudents((prev) => prev.filter((student) => student._id !== _id));
+      setFeedback({
+        open: true,
+        message: "Student deleted successfully",
+        type: "success",
+      });
+    } catch (error) {
+      console.error("Erreur lors de la suppression :", error);
+      setFeedback({
+        open: true,
+        message: `Delete error : ${error.message}`,
+        type: "error",
+      });
     }
-    setFeedback({ ...feedback, open: false });
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const handleModifyStudent = async (updatedStudent) => {
+    try {
+      const response = await fetch(
+        `http://localhost:8010/api/students/${updatedStudent._id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstName: updatedStudent.firstName,
+            lastName: updatedStudent.lastName,
+          }),
+        }
+      );
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+      if (!response.ok) {
+        throw new Error(`Erreur serveur : ${response.status}`);
+      }
+
+      const savedStudent = await response.json();
+
+      setStudents((prev) =>
+        prev.map((s) => (s._id === savedStudent._id ? savedStudent : s))
+      );
+      setEditingStudent(null);
+      setFeedback({
+        open: true,
+        message: "Student updated successfully",
+        type: "success",
+      });
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour :", error);
+      setFeedback({
+        open: true,
+        message: `Update error : ${error.message}`,
+        type: "error",
+      });
+    }
+  };
+
+  const handleCloseFeedback = () => {
+    setFeedback((prev) => ({ ...prev, open: false }));
+  };
 
   return (
     <div>
       <FormulaireEtudiant
-        data={data}
-        onAddStudent={addStudent}
+        onAddStudent={handleAddStudent}
         editingStudent={editingStudent}
-        onModifyStudent={modifyStudent}
+        onModifyStudent={handleModifyStudent}
       />
       <Etudiants
-        data={data}
-        onDeleteStudent={deleteStudent}
+        data={students}
+        onDeleteStudent={handleDeleteStudent}
         onEditStudent={setEditingStudent}
       />
-      <Snackbar 
-        open={feedback.open} 
-        autoHideDuration={3000} 
+      <Snackbar
+        open={feedback.open}
+        autoHideDuration={3000}
         onClose={handleCloseFeedback}
       >
-        <Alert 
-          onClose={handleCloseFeedback} 
-          severity={feedback.type} 
+        <Alert
+          onClose={handleCloseFeedback}
+          severity={feedback.type}
           variant="filled"
         >
           {feedback.message}

@@ -1,62 +1,136 @@
 import React, { useState, useEffect } from "react";
-import FormulaireEtudiant from "./FormulaireEtudiant";
-import Etudiants from "./Etudiants";
+import { Button, TextField, Box, Typography } from "@mui/material";
 
-const StudentManager = () => {
-  const [students, setStudents] = useState([]);
-  const [editingStudent, setEditingStudent] = useState(null);
+const FormulaireEtudiant = ({
+  onAddStudent,
+  editingStudent,
+  onModifyStudent,
+}) => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+  });
 
-  // Charger les étudiants depuis l'API
   useEffect(() => {
-    fetch("http://localhost:8010/api/students")
-      .then((response) => {
+    if (editingStudent) {
+      setFormData({
+        firstName: editingStudent.firstName || "",
+        lastName: editingStudent.lastName || "",
+      });
+    } else {
+      setFormData({
+        firstName: "",
+        lastName: "",
+      });
+    }
+  }, [editingStudent]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (editingStudent) {
+      try {
+        const response = await fetch(
+          `http://localhost:8010/api/students/${editingStudent._id}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              firstName: formData.firstName,
+              lastName: formData.lastName,
+            }),
+          }
+        );
+
         if (!response.ok) {
-          throw new Error("Erreur lors du chargement des étudiants");
+          throw new Error(`Erreur serveur: ${response.status}`);
         }
-        return response.json();
-      })
-      .then((data) => {
-        setStudents(data); // Met à jour la liste des étudiants
-      })
-      .catch((error) => console.error("Erreur :", error));
-  }, []);
 
-  // Ajouter un étudiant (localement)
-  const handleAddStudent = (newStudent) => {
-    const newId = Math.random().toString(36).substr(2, 9); // Génère un ID unique local
-    const newStudentWithId = { ...newStudent, _id: newId };
-    setStudents([...students, newStudentWithId]); // Ajoute l'étudiant à la liste locale
-  };
+        const updatedStudent = await response.json();
+        onModifyStudent(updatedStudent);
+      } catch (error) {
+        console.error("Erreur lors de la mise à jour de l'étudiant :", error);
+      }
+    } else {
+      try {
+        const response = await fetch("http://localhost:8010/api/students", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+          }),
+        });
 
-  // Modifier un étudiant (localement)
-  const handleModifyStudent = (updatedStudent) => {
-    setStudents(
-      students.map((student) =>
-        student._id === updatedStudent._id ? updatedStudent : student
-      )
-    );
-    setEditingStudent(null); // Arrête l'édition après la modification
-  };
+        if (!response.ok) {
+          throw new Error(`Erreur serveur: ${response.status}`);
+        }
+        const createdStudent = await response.json();
+        onAddStudent(createdStudent);
+      } catch (error) {
+        console.error("Erreur lors de la création de l'étudiant :", error);
+      }
+    }
 
-  // Supprimer un étudiant (localement)
-  const handleDeleteStudent = (id) => {
-    setStudents(students.filter((student) => student._id !== id));
+    setFormData({
+      firstName: "",
+      lastName: "",
+    });
   };
 
   return (
-    <div>
-      <FormulaireEtudiant
-        onAddStudent={handleAddStudent}
-        editingStudent={editingStudent}
-        onModifyStudent={handleModifyStudent}
-      />
-      <Etudiants
-        data={students}
-        onDeleteStudent={handleDeleteStudent}
-        onEditStudent={setEditingStudent}
-      />
-    </div>
+    <Box
+      sx={{
+        maxWidth: 400,
+        mx: "auto",
+        mt: 4,
+        p: 3,
+        boxShadow: 2,
+        borderRadius: 1,
+      }}
+    >
+      <Typography variant="h5" component="h1" gutterBottom>
+        {editingStudent ? "Update Student" : "Add New Student"}
+      </Typography>
+
+      <form onSubmit={handleSubmit}>
+        <TextField
+          fullWidth
+          label="First Name"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleInputChange}
+          required
+          margin="normal"
+        />
+
+        <TextField
+          fullWidth
+          label="Last Name"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleInputChange}
+          required
+          margin="normal"
+        />
+
+        <Button
+          type="submit"
+          variant="contained"
+          color={editingStudent ? "success" : "primary"}
+          sx={{ mt: 2 }}
+          fullWidth
+        >
+          {editingStudent ? "Update" : "Add"}
+        </Button>
+      </form>
+    </Box>
   );
 };
 
-export default StudentManager;
+export default FormulaireEtudiant;

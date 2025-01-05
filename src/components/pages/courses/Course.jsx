@@ -32,15 +32,10 @@ const Course = ({ data, onDelete, onEdit }) => {
   const endIndex = startIndex + rowsPerPage;
   const currentData = data?.slice(startIndex, endIndex);
 
-  console.log("Données reçues par <Course> :", data);
-
   return (
     <TableContainer
       component={Paper}
-      style={{
-        margin: "20px 0",
-        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-      }}
+      style={{ margin: "20px 0", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)" }}
     >
       <Typography
         variant="h6"

@@ -7,8 +7,6 @@ const CourseManager = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [editingCourse, setEditingCourse] = useState(null);
-
-  // Récupération initiale
   useEffect(() => {
     fetch("http://localhost:8010/api/courses")
       .then((response) => {
@@ -18,7 +16,6 @@ const CourseManager = () => {
         return response.json();
       })
       .then((jsonData) => {
-        // jsonData doit être un tableau : [ { _id, name, code }, ...]
         console.log("Données chargées depuis /api/courses :", jsonData);
         setCourses(jsonData);
         setLoading(false);
@@ -29,34 +26,58 @@ const CourseManager = () => {
         setLoading(false);
       });
   }, []);
-
-  // Ajout local du nouveau cours (retourné par l'API)
   const addCourse = (newCourse) => {
     console.log("Ajouter un nouveau cours :", newCourse);
     // newCourse inclut _id généré par Mongo
     setCourses((prev) => [...prev, newCourse]);
   };
-
-  // Suppression locale
-  // (vous pouvez ensuite faire un fetch DELETE vers /api/courses/:id)
-  const deleteCourse = (mongoId) => {
+  const deleteCourse = async (mongoId) => {
     console.log("Supprimer le cours _id =", mongoId);
-    setCourses((prev) => prev.filter((course) => course._id !== mongoId));
+    try {
+      const response = await fetch(
+        `http://localhost:8010/api/courses/${mongoId}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`Erreur serveur : ${response.status}`);
+      }
+      setCourses((prev) => prev.filter((course) => course._id !== mongoId));
+    } catch (err) {
+      console.error("Erreur lors de la suppression du cours :", err);
+      setError(err.message);
+    }
   };
-
-  // Mise à jour locale
-  // (vous pouvez ensuite faire un fetch PUT vers /api/courses/:id)
-  const updateCourse = (updatedCourse) => {
+  const updateCourse = async (updatedCourse) => {
     console.log("Mettre à jour le cours :", updatedCourse);
-    setCourses((prev) =>
-      prev.map((course) =>
-        course._id === updatedCourse._id ? updatedCourse : course
-      )
-    );
-    setEditingCourse(null);
+    try {
+      const response = await fetch(
+        `http://localhost:8010/api/courses/${updatedCourse._id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: updatedCourse.name,
+            code: updatedCourse.code,
+          }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error(`Erreur serveur : ${response.status}`);
+      }
+      const savedCourse = await response.json();
+      setCourses((prev) =>
+        prev.map((c) =>
+          c._id === savedCourse.course._id ? savedCourse.course : c
+        )
+      );
+      setEditingCourse(null);
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du cours :", error);
+      setError(error.message);
+    }
   };
-
-  // Lance l'édition
   const startEditing = (course) => {
     console.log("Commencer l'édition du cours :", course);
     setEditingCourse(course);
@@ -73,6 +94,7 @@ const CourseManager = () => {
         editingCourse={editingCourse}
         onUpdateCourse={updateCourse}
       />
+
       <Course
         data={courses}
         onDelete={deleteCourse}

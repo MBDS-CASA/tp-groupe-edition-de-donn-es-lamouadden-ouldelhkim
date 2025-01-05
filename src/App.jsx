@@ -71,14 +71,12 @@ function App() {
                 />
               }
             />
-            {/* On passe data à NoteManager si on veut l'utiliser */}
             <Route path="/notes" element={<NoteManager data={data} />} />
             <Route path="/etudiants" element={<StudentManager data={data} />} />
-            <Route path="/etudiants/:id" element = {<StudentDetails />} />
+            <Route path="/etudiants/:id?/:firstName?/:lastName?" element={<StudentDetails />} /> 
             <Route path="/matieres" element={<CourseManager data={data} />} />
             <Route path="/stats" element={<Statistics />} />
             <Route path="/apropos" element={<Apropos />} />
-            {/* Redirection des routes inconnues vers la page d'accueil */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>

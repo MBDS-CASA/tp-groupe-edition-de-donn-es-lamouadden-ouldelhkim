@@ -44,7 +44,7 @@ const Etudiants = ({ data, onDeleteStudent, onEditStudent }) => {
   };
 
   const handleDeleteConfirm = () => {
-    onDeleteStudent(deleteDialog._id); // Correction ici : utilisation de `_id`
+    onDeleteStudent(deleteDialog._id);
     setDeleteDialog({ open: false, _id: null });
   };
 
@@ -93,9 +93,9 @@ const Etudiants = ({ data, onDeleteStudent, onEditStudent }) => {
                         color="primary"
                         onClick={() =>
                           onEditStudent({
-                            id: element?._id,
+                            _id: element?._id,
                             firstName: element?.firstName,
-                            lastName: element?.lastName, // Correction ici
+                            lastName: element?.lastName,
                           })
                         }
                       >
@@ -125,8 +125,6 @@ const Etudiants = ({ data, onDeleteStudent, onEditStudent }) => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </TableContainer>
-
-      {/* Delete Confirmation Dialog */}
       <Dialog
         open={deleteDialog.open}
         onClose={() => setDeleteDialog({ open: false, _id: null })}

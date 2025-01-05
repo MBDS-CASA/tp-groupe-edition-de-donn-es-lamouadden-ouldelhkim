@@ -1,3 +1,4 @@
+// components/grades/Statistics.jsx
 import React, { useState, useEffect } from "react";
 import { Download } from "lucide-react";
 import {
@@ -24,10 +25,10 @@ const Statistics = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("/data.json")
+    fetch("http://localhost:8010/api/grades")
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`HTTP error! statut: ${response.status}`);
         }
         return response.json();
       })
@@ -47,23 +48,26 @@ const Statistics = () => {
   if (error) return <Alert severity="error">Erreur: {error}</Alert>;
 
   const calculateStats = () => {
-    const totalStudents = data.length;
+    const totalGrades = data.length;
     const overallAverage =
-      data.reduce((acc, curr) => acc + curr.grade, 0) / totalStudents;
+      totalGrades > 0
+        ? data.reduce((acc, curr) => acc + curr.grade, 0) / totalGrades
+        : 0;
 
     const courseStats = data.reduce((acc, curr) => {
-      if (!acc[curr.course]) {
-        acc[curr.course] = { total: 0, count: 0 };
+      const courseName = curr.course.name;
+      if (!acc[courseName]) {
+        acc[courseName] = { total: 0, count: 0 };
       }
-      acc[curr.course].total += curr.grade;
-      acc[curr.course].count += 1;
+      acc[courseName].total += curr.grade;
+      acc[courseName].count += 1;
       return acc;
     }, {});
 
     const rankings = [...data].sort((a, b) => b.grade - a.grade);
 
     return {
-      totalStudents,
+      totalGrades,
       overallAverage,
       courseStats,
       rankings,
@@ -78,11 +82,11 @@ const Statistics = () => {
       headers.join(","),
       ...data.map((row) =>
         [
-          row.unique_id,
-          row.course,
-          row.student.firstname,
-          row.student.lastname,
-          row.date,
+          row._id,
+          row.course.name + " (" + row.course.code + ")",
+          row.student.firstName,
+          row.student.lastName,
+          new Date(row.date).toLocaleDateString(),
           row.grade,
         ].join(",")
       ),
@@ -103,9 +107,9 @@ const Statistics = () => {
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
-                Nombre d'étudiants
+                Nombre de notes
               </Typography>
-              <Typography variant="h4">{stats.totalStudents}</Typography>
+              <Typography variant="h4">{stats.totalGrades}</Typography>
             </CardContent>
           </Card>
         </Grid>
@@ -136,7 +140,6 @@ const Statistics = () => {
           </Card>
         </Grid>
 
-        {/* Course Statistics */}
         <Grid item xs={12}>
           <Card>
             <CardContent>
@@ -148,7 +151,7 @@ const Statistics = () => {
                   <TableHead>
                     <TableRow>
                       <TableCell>Cours</TableCell>
-                      <TableCell>Nombre d'étudiants</TableCell>
+                      <TableCell>Nombre de notes</TableCell>
                       <TableCell>Moyenne</TableCell>
                     </TableRow>
                   </TableHead>
@@ -190,13 +193,15 @@ const Statistics = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {stats.rankings.map((student, index) => (
-                      <TableRow key={student.unique_id}>
+                    {stats.rankings.map((grade, index) => (
+                      <TableRow key={grade._id}>
                         <TableCell>{index + 1}</TableCell>
-                        <TableCell>{student.student.lastname}</TableCell>
-                        <TableCell>{student.student.firstname}</TableCell>
-                        <TableCell>{student.course}</TableCell>
-                        <TableCell>{student.grade}</TableCell>
+                        <TableCell>{grade.student.lastName}</TableCell>
+                        <TableCell>{grade.student.firstName}</TableCell>
+                        <TableCell>
+                          {grade.course.name} ({grade.course.code})
+                        </TableCell>
+                        <TableCell>{grade.grade}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
