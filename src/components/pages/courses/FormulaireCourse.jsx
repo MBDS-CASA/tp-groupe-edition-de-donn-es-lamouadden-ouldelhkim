@@ -3,25 +3,25 @@ import { Button, TextField, Box, Typography } from "@mui/material";
 
 const FormulaireCourse = ({
   data,
-  onAddCourse,
-  editingCourse,
-  onUpdateCourse,
+  onAddCourse,       
+  editingCourse,      
+  onUpdateCourse,      
 }) => {
   const [formData, setFormData] = useState({
-    courseName: "",
-    description: "",
+    name: "",
+    code: "",
   });
 
   useEffect(() => {
     if (editingCourse) {
       setFormData({
-        courseName: editingCourse.courseName,
-        description: editingCourse.description || "",
+        name: editingCourse.name || "",
+        code: editingCourse.code || "",
       });
     } else {
       setFormData({
-        courseName: "",
-        description: "",
+        name: "",
+        code: "",
       });
     }
   }, [editingCourse]);
@@ -31,30 +31,55 @@ const FormulaireCourse = ({
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (editingCourse) {
-      const updatedCourse = {
-        ...editingCourse,
-        courseName: formData.courseName,
-        description: formData.description,
-      };
-      console.log("Mise à jour du cours :", updatedCourse);
-      onUpdateCourse(updatedCourse);
-    } else {
-      const newCourse = {
-        unique_id: data.length + 1,
-        courseName: formData.courseName,
-        description: formData.description,
-      };
-      console.log("Nouveau cours :", newCourse);
-      onAddCourse(newCourse);
-    }
+      try {
+        const response = await fetch(
+          `http://localhost:8010/api/courses/${editingCourse._id}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: formData.name,
+              code: formData.code,
+            }),
+          }
+        );
 
+        if (!response.ok) {
+          throw new Error(`Erreur serveur: ${response.status}`);
+        }
+        const updatedData = await response.json();
+        onUpdateCourse(updatedData.course);
+      } catch (error) {
+        console.error("Erreur lors de la mise à jour du cours :", error);
+      }
+    } else {
+      try {
+        const response = await fetch("http://localhost:8010/api/courses", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: formData.name,
+            code: formData.code,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erreur serveur: ${response.status}`);
+        }
+
+        const createdCourseData = await response.json(); 
+        onAddCourse(createdCourseData.course);
+      } catch (error) {
+        console.error("Erreur lors de la création du cours :", error);
+      }
+    }
     setFormData({
-      courseName: "",
-      description: "",
+      name: "",
+      code: "",
     });
   };
 
@@ -70,19 +95,29 @@ const FormulaireCourse = ({
       }}
     >
       <Typography variant="h5" component="h1" gutterBottom>
-        {editingCourse ? "Modifier le Cours" : "Ajouter un Cours"}
+        {editingCourse ? "Update Course" : "Add New Course"}
       </Typography>
+
       <form onSubmit={handleSubmit}>
         <TextField
           fullWidth
-          label="Nom du Cours"
-          name="courseName"
-          value={formData.courseName}
+          label="Name of Course"
+          name="name"
+          value={formData.name}
           onChange={handleInputChange}
           required
           margin="normal"
         />
-       
+        <TextField
+          fullWidth
+          label="Code"
+          name="code"
+          value={formData.code}
+          onChange={handleInputChange}
+          required
+          margin="normal"
+        />
+
         <Button
           type="submit"
           variant="contained"
@@ -90,7 +125,7 @@ const FormulaireCourse = ({
           sx={{ mt: 2 }}
           fullWidth
         >
-          {editingCourse ? "Mettre à jour" : "Ajouter"}
+          {editingCourse ? "Update" : "Add"}
         </Button>
       </form>
     </Box>

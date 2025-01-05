@@ -1,113 +1,135 @@
 import React, { useState, useEffect } from "react";
-import { 
-  Box, 
-  TextField, 
-  Button, 
-  Typography, 
-  Card, 
-  CardContent 
-} from "@mui/material";
+import { Button, TextField, Box, Typography } from "@mui/material";
 
-const FormulaireEtudiant = ({ data, onAddStudent, editingStudent, onModifyStudent }) => {
+const FormulaireEtudiant = ({
+  onAddStudent,
+  editingStudent,
+  onModifyStudent,
+}) => {
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
   });
 
   useEffect(() => {
     if (editingStudent) {
       setFormData({
-        firstname: editingStudent.firstname,
-        lastname: editingStudent.lastname,
+        firstName: editingStudent.firstName || "",
+        lastName: editingStudent.lastName || "",
       });
     } else {
       setFormData({
-        firstname: "",
-        lastname: "",
+        firstName: "",
+        lastName: "",
       });
     }
   }, [editingStudent]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (editingStudent) {
-      onModifyStudent({
-        id: editingStudent.id,
-        firstname: formData.firstname,
-        lastname: formData.lastname,
-      });
+      try {
+        const response = await fetch(
+          `http://localhost:8010/api/students/${editingStudent._id}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              firstName: formData.firstName,
+              lastName: formData.lastName,
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Erreur serveur: ${response.status}`);
+        }
+
+        const updatedStudent = await response.json();
+        onModifyStudent(updatedStudent);
+      } catch (error) {
+        console.error("Erreur lors de la mise à jour de l'étudiant :", error);
+      }
     } else {
-      const newStudent = {
-        unique_id: data.length + 1,
-        course: "New Course",
-        student: {
-          firstname: formData.firstname,
-          lastname: formData.lastname,
-          id: Date.now(),
-        },
-        date: new Date().toISOString().split("T")[0],
-        grade: null,
-      };
-      onAddStudent(newStudent);
+      try {
+        const response = await fetch("http://localhost:8010/api/students", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erreur serveur: ${response.status}`);
+        }
+        const createdStudent = await response.json();
+        onAddStudent(createdStudent);
+      } catch (error) {
+        console.error("Erreur lors de la création de l'étudiant :", error);
+      }
     }
-    setFormData({ firstname: "", lastname: "" });
+
+    setFormData({
+      firstName: "",
+      lastName: "",
+    });
   };
 
   return (
-    <Card sx={{ maxWidth: 600, margin: '20px auto', padding: 2 }}>
-      <CardContent>
-        <Typography variant="h5" component="h2" gutterBottom>
-          {editingStudent ? "Edit Student" : "Add Student"}
-        </Typography>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
-          <TextField
-            fullWidth
-            label="First Name Fixed"
-            name="firstname"
-            value={formData.firstname}
-            onChange={handleInputChange}
-            required
-            margin="normal"
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            label="Last Name"
-            name="lastname"
-            value={formData.lastname}
-            onChange={handleInputChange}
-            required
-            margin="normal"
-            variant="outlined"
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color={editingStudent ? "success" : "primary"}
-            sx={{ mt: 2 }}
-            fullWidth
-          >
-            {editingStudent ? "Save Changes" : "Add Student"}
-          </Button>
-          {editingStudent && (
-            <Button
-              variant="outlined"
-              color="secondary"
-              sx={{ mt: 1 }}
-              fullWidth
-              onClick={() => onModifyStudent(null)}
-            >
-              Cancel Edit
-            </Button>
-          )}
-        </Box>
-      </CardContent>
-    </Card>
+    <Box
+      sx={{
+        maxWidth: 400,
+        mx: "auto",
+        mt: 4,
+        p: 3,
+        boxShadow: 2,
+        borderRadius: 1,
+      }}
+    >
+      <Typography variant="h5" component="h1" gutterBottom>
+        {editingStudent ? "Update Student" : "Add New Student"}
+      </Typography>
+
+      <form onSubmit={handleSubmit}>
+        <TextField
+          fullWidth
+          label="First Name"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleInputChange}
+          required
+          margin="normal"
+        />
+
+        <TextField
+          fullWidth
+          label="Last Name"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleInputChange}
+          required
+          margin="normal"
+        />
+
+        <Button
+          type="submit"
+          variant="contained"
+          color={editingStudent ? "success" : "primary"}
+          sx={{ mt: 2 }}
+          fullWidth
+        >
+          {editingStudent ? "Update" : "Add"}
+        </Button>
+      </form>
+    </Box>
   );
 };
 

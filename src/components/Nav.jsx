@@ -27,15 +27,15 @@ import Statistics from "./pages/statistique/Statistique";
 
 const Nav = () => {
   const theme = useTheme();
-  const navigate = useNavigate(); // React Router hook for navigation
+  const navigate = useNavigate(); 
   const [selectedItem, setSelectedItem] = useState(null);
   const [openNotes, setOpenNotes] = useState(false);
 
   const menuItems = [
     { text: "Home", icon: <HomeIcon />, route: "/" },
-    { text: "Note", icon: <NotesIcon />, route: "/notes" },
+    { text: "Grades", icon: <NotesIcon />, route: "/notes" },
     { text: "Etudiants", icon: <StudentsIcon />, route: "/etudiants" },
-    { text: "Matières", icon: <SubjectsIcon />, route: "/matieres" },
+    { text: "Course", icon: <SubjectsIcon />, route: "/matieres" },
     { text: "Statistique", icon: <BarChartIcon />, route: "/stats" },
     { text: "A propos", icon: <AboutIcon />, route: "/apropos" },
   ];
@@ -46,7 +46,7 @@ const Nav = () => {
       setOpenNotes(!openNotes);
     }
     if (item.route) {
-      navigate(item.route); // Navigate to the route associated with the item
+      navigate(item.route); 
     }
   };
 
